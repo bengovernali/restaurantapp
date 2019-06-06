@@ -1,0 +1,56 @@
+<section class="section">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Restaurant Name</td>
+                <td>Address</td>
+                <td>Menu</td>
+            </tr>
+        </thead>
+        ${singleRestaurant.map(business => 
+                `<tr>
+                    <td>${business.name}</td>
+                    <td>${business.address}</td>
+                    <td>${business.menu}</td>
+                </tr>`
+            ).join('')}
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Restaurant Name</td>
+                <td>Score</td>
+                <td>Review</td>
+                <td>Review By</td>
+            </tr>
+        </thead>
+        ${restaurantReviews.map(review =>
+            `<tr>
+                <td>${review.name}</td>
+                <td>${review.score}/5</td>
+                <td>${review.content}</td>
+                <td>${review.first_name} ${review.last_name}</td>
+            </tr>`
+            ).join('')}
+    </table>
+</section>
+<section class="section">
+    <h1>Add a Review</h1>
+    <form id="update-form" action="/restaurants" method="POST">
+        <select name="score">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <textarea name="content" rows="4" cols="50">
+            Please leave your review here
+        </textarea>
+        ${singleRestaurant.map(restaurant =>
+            `<input type='hidden' name='r_id' value='${restaurant.id}'/>`
+        )}
+        <input type='hidden' name='user_id' value='${user_id}'>
+        <button type="submit" id="submit">Submit</button>
+    </form>
+</section>
